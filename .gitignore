@@ -59,4 +59,7 @@ target/
 
 #PyCharm
 .idea/
+
+#SQLite Databases
+*.sqlite3
 ppp
