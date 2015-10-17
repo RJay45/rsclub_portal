@@ -52,6 +52,9 @@ class Api:
         try:
             apicall = request.Request(call)
             return json.loads(request.urlopen(apicall).read().decode('utf-8'))
+        except error.URLError as e:
+            print("Error - There was a problem with the request: " + str(e))
+            return None
         except error.HTTPError as e:
-            print("Error - HTTP code " + str(e.code) + " response: " + e.reason)
+            print("Error - HTTP code " + str(e.code) + " response: " + str(e))
             return None
