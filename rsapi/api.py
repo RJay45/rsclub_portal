@@ -8,8 +8,6 @@ class Api:
         self.key = None
         self._check_key()
         print(self.key)
-        data = self._api_call('domains/available.json', {'domain-name':'google', 'tlds':'com'})
-        print(data)
 
     def _check_key(self):
         if self.key is None or not self.key.is_valid():
@@ -43,7 +41,14 @@ class Api:
         # Add additional parameters
         if kv_pairs is not None and isinstance(kv_pairs, dict):
             for item in kv_pairs.items():
-                call += "&" + item[0] + "=" + item[1]
+                if not isinstance(item[0], str):
+                    continue
+
+                if isinstance(item[1], str):
+                    call += "&" + item[0] + "=" + item[1]
+                elif isinstance(item[1], tuple) or isinstance(item[1], list):
+                    for sub_item in item[1]:
+                        call += "&" + item[0] + "=" + sub_item
 
         print(call)
         return_value = None
@@ -63,3 +68,18 @@ class Api:
             self.key.save()
         finally:
             return return_value
+
+    def check_domain_availability(self, domain_name, tlds=None):
+        if not isinstance(domain_name, str) and not isinstance(domain_name, tuple) and not isinstance(domain_name, list):
+            return None
+        if not isinstance(tlds, str) and not isinstance(tlds, tuple) and not isinstance(tlds, list):
+            return None
+
+        result = self._api_call('domains/available.json', {'domain-name': domain_name, 'tlds': tlds})
+
+        return result
+
+
+
+
+
