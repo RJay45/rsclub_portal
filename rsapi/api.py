@@ -1,5 +1,3 @@
-__author__ = 'jason'
-
 from .models import ApiKey
 from urllib import request, error
 import json
@@ -39,22 +37,29 @@ class Api:
         if command is None or not isinstance(command, str):
             raise Exception("An API command must be specified")
 
-        #Create base API call with authentication data
+        # Create base API call with authentication data
         call = self.key.url + command + "?auth-userid=" + self.key.userId + "&api-key=" + self.key.authKey
 
-        #Add additional parameters
+        # Add additional parameters
         if kv_pairs is not None and isinstance(kv_pairs, dict):
             for item in kv_pairs.items():
                 call += "&" + item[0] + "=" + item[1]
 
         print(call)
+        return_value = None
 
         try:
-            apicall = request.Request(call)
-            return json.loads(request.urlopen(apicall).read().decode('utf-8'))
-        except error.URLError as e:
-            print("Error - There was a problem with the request: " + str(e))
-            return None
+            api_call = request.Request(call)
+            return_value = json.loads(request.urlopen(api_call).read().decode('utf-8'))
         except error.HTTPError as e:
             print("Error - HTTP code " + str(e.code) + " response: " + str(e))
-            return None
+        except error.URLError as e:
+            print("Error - There was a problem with the request: " + str(e))
+        except Exception as e:
+            print("Unknown error was caught: " + str(e))
+        else:
+            # Update the last success on the key so that it is tried first next time.
+            self.key.lastSuccess = ApiKey.get_now()
+            self.key.save()
+        finally:
+            return return_value

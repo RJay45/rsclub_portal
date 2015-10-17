@@ -11,18 +11,22 @@ class ApiKey(models.Model):
     authKey = models.CharField(max_length=255)
     startTime = models.DateTimeField()
     endTime = models.DateTimeField()
+    lastSuccess = models.DateTimeField(null=True)
 
     def is_valid(self):
         """Returns True if this key is valid (now is between the start and end times)"""
-        now = timezone.make_aware(datetime.now(), timezone.get_current_timezone())
-        return self.startTime <= now < self.endTime
+        return self.startTime <= ApiKey.get_now() < self.endTime
+
+    @staticmethod
+    def get_now():
+        return timezone.make_aware(datetime.now(), timezone.get_current_timezone())
 
     @staticmethod
     def get_valid():
         """Get all ApiKeys that are valid."""
         now = timezone.make_aware(datetime.now(), timezone.get_current_timezone())
-        keys = ApiKey.objects.all().filter(startTime__lte=now).filter(endTime__gt=now)
-        #print(keys.query)
+        keys = ApiKey.objects.all().filter(startTime__lte=now).filter(endTime__gt=now).order_by('-lastSuccess')
+        # print(keys.query)
         return keys
 
     def formatted_url(self):
@@ -59,6 +63,19 @@ class ApiKey(models.Model):
         else:
             return ApiKey._add_strike(datetime.strftime(self.endTime, "%c"))
     formatted_end_time.short_description = "End Time"
+
+    def formatted_last_success(self):
+        if self.is_valid():
+            if self.lastSuccess is None:
+                return "Never"
+            else:
+                return datetime.strftime(self.lastSuccess, "%c")
+        else:
+            if self.lastSuccess is None:
+                return "Never"
+            else:
+                return ApiKey._add_strike(datetime.strftime(self.lastSuccess, "%c"))
+    formatted_end_time.short_description = "Last Success"
 
     @staticmethod
     def _add_strike(value):
