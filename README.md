@@ -12,3 +12,9 @@ Run the following commands to get started:
   * python manage.py migrate
 * Run a test server:
   * python manage.py runserver
+  
+##Reseller Club
+Refer to this guide for setting up a test account: http://manage.india.resellerclub.com/kb/servlet/KBServlet/faq416.html
+
+##Copyright and License
+Code is Copyright © Jason Griffith 2015
