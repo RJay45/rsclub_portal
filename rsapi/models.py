@@ -12,6 +12,7 @@ class ApiKey(models.Model):
     startTime = models.DateTimeField()
     endTime = models.DateTimeField()
     lastSuccess = models.DateTimeField(null=True)
+    _date_format = "%d %b %Y, %H:%M:%S"
 
     def is_valid(self):
         """Returns True if this key is valid (now is between the start and end times)"""
@@ -52,16 +53,16 @@ class ApiKey(models.Model):
 
     def formatted_start_time(self):
         if self.is_valid():
-            return datetime.strftime(self.startTime, "%c")
+            return self.startTime.strftime(ApiKey._date_format)
         else:
-            return ApiKey._add_strike(datetime.strftime(self.startTime, "%c"))
+            return ApiKey._add_strike(self.startTime.strftime(ApiKey._date_format))
     formatted_start_time.short_description = "Start Time"
 
     def formatted_end_time(self):
         if self.is_valid():
-            return datetime.strftime(self.endTime, "%c")
+            return self.endTime.strftime(ApiKey._date_format)
         else:
-            return ApiKey._add_strike(datetime.strftime(self.endTime, "%c"))
+            return ApiKey._add_strike(self.endTime.strftime(ApiKey._date_format))
     formatted_end_time.short_description = "End Time"
 
     def formatted_last_success(self):
@@ -69,13 +70,13 @@ class ApiKey(models.Model):
             if self.lastSuccess is None:
                 return "Never"
             else:
-                return datetime.strftime(self.lastSuccess, "%c")
+                return self.lastSuccess.strftime(ApiKey._date_format)
         else:
             if self.lastSuccess is None:
-                return "Never"
+                return ApiKey._add_strike("Never")
             else:
-                return ApiKey._add_strike(datetime.strftime(self.lastSuccess, "%c"))
-    formatted_end_time.short_description = "Last Success"
+                return ApiKey._add_strike(self.lastSuccess.strftime(ApiKey._date_format))
+    formatted_last_success.short_description = "Last Success"
 
     @staticmethod
     def _add_strike(value):
