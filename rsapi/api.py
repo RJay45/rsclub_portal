@@ -6,7 +6,7 @@ import json
 
 class _ApiEnum(Enum):
     def __str__(self):
-        return self.name
+        return self.value
 
 ########################################################################################################################
 
