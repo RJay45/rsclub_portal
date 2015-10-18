@@ -41,6 +41,19 @@ class DomainStatus(_ApiEnum):
 ########################################################################################################################
 
 
+class OrderBy(_ApiEnum):
+    OrderId = "orderid"
+    CustomerId = "customerid"
+    EndTime = "endtime"
+    Timestamp = "timestamp"
+    EntityTypeId = "entityypeid"
+    CreationTime = "creationtime"
+    CreationDate = "creationdt"
+
+
+########################################################################################################################
+
+
 class ApiException(Exception):
     def __init__(self, message, is_connection=False, request_str=None, response_str=None, origin_exception=None):
         self.message = message
@@ -120,7 +133,7 @@ class Api:
                     # We want to read HTTP 500 errors as JSON, but let's check it's what we think it it
                     response = e.read().decode('utf-8')
                     return_value = json.loads(response)
-                    print(str(return_value))
+
                     if not isinstance(return_value, dict):
                         raise ApiException("An HTTP code " + str(e.getcode()) + " was received.",
                                            True, call, response, e)
@@ -163,7 +176,7 @@ class Api:
             raise ValueError("Invalid page attributes. Values must be integer and per page must be between 10 and 500.")
 
         options = {
-            'order_by': (str, list, tuple),
+            'order_by': (OrderBy, list, tuple),
             'order_id': (int, list, tuple),
             'reseller_id': (int, list, tuple),
             'customer_id': (int, list, tuple),
