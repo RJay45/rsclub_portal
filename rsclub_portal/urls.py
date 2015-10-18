@@ -16,8 +16,11 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from rsapi import views
+from django.contrib.staticfiles import views as sviews
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', views.index, name='index')
+    url(r'^test$', views.index, name='index'),
+    url(r'^domains/*', include('domainlist.urls')),
+    url(r'^static/(?P<path>.*)$', sviews.serve)
 ]

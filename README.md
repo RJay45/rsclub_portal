@@ -16,5 +16,12 @@ Run the following commands to get started:
 ##Reseller Club
 Refer to this guide for setting up a test account: http://manage.india.resellerclub.com/kb/servlet/KBServlet/faq416.html
 
+##Dependencies
+Makes use of the following external projects / software:
+* Python 3.5.0
+* Django 1.8.5
+* HTML5 Boilerplate 5.2.0
+
 ##Copyright and License
 Code is Copyright © Jason Griffith 2015
+
