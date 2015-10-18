@@ -18,6 +18,10 @@ class ApiKey(models.Model):
         """Returns True if this key is valid (now is between the start and end times)"""
         return self.startTime <= ApiKey.get_now() < self.endTime
 
+    def update_last_valid(self):
+        self.lastSuccess = ApiKey.get_now()
+        self.save()
+
     @staticmethod
     def get_now():
         return timezone.make_aware(datetime.now(), timezone.get_current_timezone())
