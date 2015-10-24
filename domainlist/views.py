@@ -29,3 +29,16 @@ def index(request):
         template_variables['error_res'] = e.response
 
     return render(request, 'domainlist/index.html', template_variables)
+
+def pagetest(request):
+    template_variables = {
+        'domains': ({
+                        'name': 'domain1.com',
+                        'expire': '1 Jan 1970'
+                    },
+                    {
+                        'name': 'domain2.com',
+                        'expire': '2 Apr 2010'
+                    }),
+    }
+    return render(request, 'domainlist/index.html', template_variables)
