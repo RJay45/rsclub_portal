@@ -4,7 +4,34 @@
    Author's custom styles
    ========================================================================== */
 
+div.jumbotron {
+    background-image: url("../img/header.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height:800px;
+    color:#F6E266;
+    padding-top:2em;
+}
 
+div.jumbotron h1 {
+    font-family: 'Cinzel Decorative', cursive;
+    font-weight:bold;
+}
+
+div.jumbotron span {
+    font-family: 'Cinzel Decorative', cursive;
+    font-weight:bold;
+    color:#FFCA93;
+}
+
+body {
+
+}
+
+a.navbar-brand {
+    font-family: 'Cinzel Decorative', cursive;
+    font-weight:bold;
+}
 
 
 
