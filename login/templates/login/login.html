@@ -1,0 +1,33 @@
+{% extends "master.html" %}
+
+{% block nav-login %}
+    <form class="navbar-form navbar-right" role="form" action="/login" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <input type="text" name="username" placeholder="Username" class="form-control">
+        </div>
+        <div class="form-group">
+            <input type="password" name="password" placeholder="Password" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-success">Sign in</button>
+    </form>
+{% endblock %}
+
+{% block pre-content %}
+    {% if error %}
+    <div class="message">
+        <p class="title">Oh no!</p>
+        <p class="text">{{ error }}</p>
+        <a class="button" onClick="$('div.message').hide()">OK</a>
+    </div>
+    {% endif %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+        <h1>LonDOM</h1>
+        <p>The <span>Quorum</span> Domain Management Service. Please login to continue.</p>
+        <!--<p><a class="btn btn-primary btn-lg" href="/static/#" role="button">Learn more &raquo;</a></p>-->
+        </div>
+    </div>
+{% endblock %}
+
