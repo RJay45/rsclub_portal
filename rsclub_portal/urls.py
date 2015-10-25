@@ -17,10 +17,13 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from rsapi import views
 from django.contrib.staticfiles import views as sviews
+from login import views as lviews
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^test$', views.index, name='index'),
     url(r'^domains/*', include('domainlist.urls')),
-    url(r'^static/(?P<path>.*)$', sviews.serve)
+    url(r'^static/(?P<path>.*)$', sviews.serve),
+    url(r'^/*$', lviews.login_page),
+    url(r'^login/*', lviews.do_login)
 ]

@@ -33,11 +33,61 @@ a.navbar-brand {
     font-weight:bold;
 }
 
+/*
+Error message box
+*/
 
+div.message {
+    background-color:rgba(255,240,147,.5);
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255,255,255,.1) 5px, rgba(255,255,255,.1) 10px);
+    position:absolute;
+    width:20em;
+    mind-height:10em;
+    top:50%;
+    left:50%;
+    margin-top:-5em;
+    margin-left:-10em;
+    padding-bottom:1em;
+    //box-shadow: 5px 5px 5px rgba(255,255,255,.8);
+}
 
+div.message p.title {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size:2em;
+    font-weight:bold;
+    text-align:center;
+    background-color:#954F08;
+        background-image: repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(255,255,255,.05) 5px, rgba(255,255,255,.05) 10px);
+    color:#000000;
+}
 
+div.message p.text {
+    text-align:center;
+    font-size:1.3em;
+    color:#000000;
+}
 
+div.message a.button {
+    display:inline-block;
+    position:relative;
+    width:4em;
+    height:2em;
+    line-height:2em;
+    background-color:#112266;
+    color:#EEEFFF;
+    text-align:center;
+    left:50%;
+    margin-left:-2em;
+    margin-top:0.5em;
+    border-radius:7px;
+}
 
+div.message a.button:hover {
+    cursor: hand;
+    cursor: pointer;
+    text-decoration:none;
+    background-color:#213480;
+}
 
 
 

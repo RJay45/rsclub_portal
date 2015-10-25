@@ -38,7 +38,9 @@ INSTALLED_APPS = (
 #    'django.contrib.messages',
     'django.contrib.staticfiles',
     'rsapi',
-    'domainlist'
+    'domainlist',
+    'composer',
+    'login'
 )
 
 MIDDLEWARE_CLASSES = (
