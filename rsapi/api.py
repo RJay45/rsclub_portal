@@ -55,7 +55,7 @@ class OrderBy(_ApiEnum):
 
 
 class ApiException(Exception):
-    def __init__(self, message, is_connection=False, request_str=None, response_str=None, origin_exception=None):
+    def __init__(self, message, is_connection=False, request_str="", response_str="", origin_exception=None):
         self.message = message
         self.request = request_str
         self.response = response_str
